@@ -16,6 +16,14 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                            <form class="form-inline ml-auto">
+                            <div class="md-form my-0">
+                            <input class="form-control" type="text" placeholder="Wyszukaj" aria-label="Wyszukaj">
+                            </div>
+                            <div class="input-group-append">
+                            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                            </div>
+                            </form>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Zaloguj się') }}</a>
@@ -32,6 +40,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/account">{{ __('Konto') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

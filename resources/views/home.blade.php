@@ -7,12 +7,12 @@
 
 <div class="container col-md-8">
     <div class="col-md-12">
-        <div class="input-group mb-4">
+        <form class="input-group mb-4">
                 <input type="search" placeholder="Wpisz miasto/rodzaj usługi" aria-describedby="button-addon5" class="form-control">
                 <div class="input-group-append">
                   <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
                 </div>
-        </div>
+        </form>
     </div>
 </div>
 
