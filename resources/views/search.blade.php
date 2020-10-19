@@ -9,7 +9,7 @@
 @if(count($errors)>0)
  @foreach($workshops as $workshop)
 
- <li><a href="/warsztat/{​​{​​ $workshop->id }​​}​​">{​​{​​ $workshop->workshop_name }​​}​​</a></li>
+ <li><a href="/warsztat/{​​{​​ $workshop->id }​​}​​">{​​{​​ $workshop->name }​​}​​</a></li>
 
  @endforeach
 @endif
