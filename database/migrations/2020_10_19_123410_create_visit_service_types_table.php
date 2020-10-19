@@ -13,8 +13,10 @@ class CreateVisitServiceTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('visit__service__types', function (Blueprint $table) {
+        Schema::create('visit_service_types', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('service_type_id');
+            $table->foreignId('visit_id');
             $table->timestamps();
         });
     }

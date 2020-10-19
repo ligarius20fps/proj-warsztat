@@ -15,6 +15,10 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->number('status');
+            $table->foreignId('customer_id');
+            $table->foreignId('workshop_id');
             $table->timestamps();
         });
     }

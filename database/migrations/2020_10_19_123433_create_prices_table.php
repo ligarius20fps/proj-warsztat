@@ -15,6 +15,9 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
+            $table->float('price');
+            $table->foreignId('service_type_id');
+            $table->foreignId('price_list_id');
             $table->timestamps();
         });
     }

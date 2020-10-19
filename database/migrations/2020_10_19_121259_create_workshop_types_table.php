@@ -13,7 +13,7 @@ class CreateWorkshopTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('workshop__types', function (Blueprint $table) {
+        Schema::create('workshop_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

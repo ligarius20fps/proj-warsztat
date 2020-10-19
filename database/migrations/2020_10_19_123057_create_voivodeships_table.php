@@ -15,6 +15,7 @@ class CreateVoivodeshipsTable extends Migration
     {
         Schema::create('voivodeships', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }

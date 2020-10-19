@@ -20,6 +20,7 @@ class CreateWorkshopsTable extends Migration
             $table->string('description');
             $table->string('email')->unique();
             $table->foreignId('workshop_type_id');
+            $table->foreignId('address_id');
             $table->timestamps();
         });
     }
