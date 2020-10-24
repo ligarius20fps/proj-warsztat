@@ -31,6 +31,6 @@ class VoivodeshipsTableSeeder extends Seeder
          ['name' => 'Sląskie'],
          ['name' => 'Małopolskie'],
          ['name' => 'Podkarpackie'],
-        ])
+        ]);
     }
 }
