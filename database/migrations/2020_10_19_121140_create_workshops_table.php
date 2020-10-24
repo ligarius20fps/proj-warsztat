@@ -16,7 +16,7 @@ class CreateWorkshopsTable extends Migration
         Schema::create('workshops', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('phone_number');
+            $table->char('phone_number',9);
             $table->string('description')->nullable();
             $table->string('email')->unique();
             $table->foreignId('workshop_type_id');
