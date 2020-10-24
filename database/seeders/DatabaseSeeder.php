@@ -16,6 +16,5 @@ class DatabaseSeeder extends Seeder
         $this->call([VoivodeshipsTableSeeder::class, 
             CitiesTableSeeder::class, 
             Workshop_TypesTableSeeder::class]);
-        // \App\Models\User::factory(10)->create();
     }
 }
