@@ -64,8 +64,10 @@
                         <div class="form-group row mb-0">
 
                             <div class="col-md-6 offset-md-4">
-                                <input type="radio" name="user_type" value="1">Użytkownik Indywidualny<br>
-                                <input type="radio" name="user_type" value="2">Właściciel Warsztatu
+                                <input type="radio" id="indywidualny" name="user_type" value="1">
+                                <label for="indywidualny">Użytkownik Indywidualny</label><br>
+                                <input type="radio" id="wlasciciel" name="user_type" value="2">
+                                <label for="wlasciciel">Właściciel Warsztatu</label>
                             </div>
                         </div>
 
