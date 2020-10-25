@@ -7,8 +7,7 @@
 
 <div class="container col-md-8">
     <div class="col-md-12">
-        <form class="input-group mb-4" action="/search" method="POST" role="search">
-            {{ csrf_field() }}
+        <form class="input-group mb-4" action="{{ url('/search') }}" method="get" role="search">
                 <input type="search" placeholder="Wpisz miasto/rodzaj usługi" aria-describedby="button-addon5" class="form-control" name="q">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
