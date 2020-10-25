@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +19,24 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/search', function () {
-    return view('search');
-});
 
 Route::get('/account', function () {
     return view('account');
+});
+
+Route::any('/search', function(Request $request){
+    $q = $request->input('q');
+    $workshop = DB::table('workshops')->select('workshops.id', 'workshops.name', 'cities.name')
+            /*->join('workshop_types','workshop_types.id','=','workshops.workshop_type_id')*/
+            ->join('addresses', 'addresses.id', '=', 'workshops.address_id')->
+            join('cities','cities.id','=','addresses.city_id')
+            ->where(['workshops.name' => '%' .$q. '%'])
+            ->orWhere(['cities.name' => '%' .$q. '%'])
+            /*->orWhere(['workshop_types.name' => '%' .$q. '%'])*/->get();
+    if(count($workshop)>0)
+        return view('search')->withDetails($workshop)->withQuery($q);
+    else
+        return view('search')->withMessage('Brak wyników');
 });
 
 Auth::routes();
