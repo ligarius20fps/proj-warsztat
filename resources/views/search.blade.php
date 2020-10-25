@@ -6,13 +6,13 @@
  <button class="btn btn-primary">Filtruj</button>
  
  <ul>
-@if(count($errors)>0)
- @foreach($workshops as $workshop)
+ @if(isset($details))
+ @foreach($details as $workshop)
 
- <li><a href="/warsztat/{​​{​​ $workshop->id }​​}​​">{​​{​​ $workshop->name }​​}​​</a></li>
+ <li>{​​{​​ $workshop->name }​​}​​</li>
 
  @endforeach
-@endif
+ @endif
  </ul>
 </div>
  @endsection
