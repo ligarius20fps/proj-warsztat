@@ -10,7 +10,7 @@
      <tbody>
  @foreach($workshops as $workshop)
  <tr><td>
-    <a href="/workshops/{{ $workshop->id }}"> {​​{​​ $workshop->name }​​}​​ </a>
+    <a href="/workshops/{{ $workshop->id }}"> {{ $workshop->name }} </a>
  </td></tr>
  @endforeach
  <tbody>
