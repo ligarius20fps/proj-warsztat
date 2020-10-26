@@ -16,12 +16,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                            <form class="form-inline ml-auto">
+                            <form class="form-inline ml-auto" action="{{ url('/search') }}" method="get" role="search">
                             <div class="md-form my-0">
-                            <input class="form-control" type="text" placeholder="Wyszukaj" aria-label="Wyszukaj">
+                            <input type="search" placeholder="Wyszukaj" class="form-control" aria-label="Wyszukaj" name="q">
                             </div>
                             <div class="input-group-append">
-                            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                             </div>
                             </form>
                         @guest
