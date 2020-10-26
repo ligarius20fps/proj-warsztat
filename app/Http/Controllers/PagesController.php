@@ -20,10 +20,20 @@ class PagesController extends Controller
         $workshop_types=DB::select("select * from workshop_types");
         return view('new_workshop', ['cities'=>$cities, 'workshop_types'=>$workshop_types]);
     }
-    public function add_workshop(Request $request)
+    public function add_workshop(/*Request $request*/)
     {
-        Workshops::create($request->all());
-        Address::create($request->all());
+         Address::create([
+            'street_name'=>request('street_name'),
+            'postal_code'=>request('postal_code'),
+            'building_number'=>request('building_number'),
+            'city_id'=>request('city_id')
+        ]);
+        Workshops::create([
+            'name'=>request('name'),
+            'email'=>request('email'),
+            'workshop_type_id'=>request('workshop_type_id'),
+            'description'=>request('description'),
+            'address_id'=>DB::getPdo()->lastInsertedId()]);
         return redirect('/account/workshops');
     }
 }
