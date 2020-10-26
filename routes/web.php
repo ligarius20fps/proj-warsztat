@@ -26,10 +26,17 @@ Route::get('/account', function () {
     return view('account');
 });
 
+Route::get('/account/workshops', function () {
+    return view('workshops');
+});
+
 Route::get('/search', [Controllers\SearchController::class, 'search']);
 
 Route::get('/workshop/{id]',[Controllers\PagesController::class, 'workshop_page'])->name('workshop_page');
 
 Auth::routes();
+
+Route::post('/account/workshops', [Controllers\PagesController::class, 'add_workshop']);
+Route::get('/account/workshops/new', [Controllers\PagesController::class, 'new_workshop']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
