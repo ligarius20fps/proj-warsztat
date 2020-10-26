@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 <h1>Dodaj warsztat</h1>
-<form action="{{url('/account/wokshops')}}" method="POST">
+<form action="{{url('/account/workshops')}}" method="POST">
     @csrf
     <div class="form-group">
         <label for="">Nazwa warsztatu</label>
