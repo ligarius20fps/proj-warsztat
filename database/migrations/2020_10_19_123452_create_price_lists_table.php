@@ -13,7 +13,7 @@ class CreatePriceListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('price__lists', function (Blueprint $table) {
+        Schema::create('price_lists', function (Blueprint $table) {
             $table->id();
             $table->date('start_date');
             $table->date('end_date');
@@ -29,6 +29,6 @@ class CreatePriceListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('price__lists');
+        Schema::dropIfExists('price_lists');
     }
 }

@@ -28,6 +28,6 @@ class CreateVisitServiceTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visit__service__types');
+        Schema::dropIfExists('visit_service_types');
     }
 }
