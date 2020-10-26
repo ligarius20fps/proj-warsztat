@@ -27,6 +27,6 @@ class CreateWorkshopTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workshop__types');
+        Schema::dropIfExists('workshop_types');
     }
 }
