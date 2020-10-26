@@ -7,9 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    use HasFactory;
+    
     protected $fillable=[
         'description',
         'rating'
     ];
-    use HasFactory;
+    
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    
+    public function visit()
+    {
+        return $this->belongsTo('App\Models\Visit');
+    }
 }

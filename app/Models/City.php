@@ -7,9 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
+    use HasFactory;
+    
     protected $fillable=[
         'name'
     ];
-
-use HasFactory;
+    
+    public function voivodeship()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    
+    public function address()
+    {
+        return $this->hasMany('App\Models\User');
+    }
 }

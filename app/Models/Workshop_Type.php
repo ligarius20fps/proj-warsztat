@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workshop_Types extends Model
 {
+    use HasFactory;
+    
     protected $fillable=[
         'name'
     ];
-    use HasFactory;
+    
+    public function workshop()
+    {
+        return $this->belongsTo('App\Models\Workshop');
+    }
 }

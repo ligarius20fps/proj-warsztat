@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\Customer');
+    }//nie wiem czy dawać belongsTo czy hasOne
+    
+    public function review()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
 }

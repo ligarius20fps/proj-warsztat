@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Price_List extends Model
 {
+    use HasFactory;
+    
     protected $fillable=[
         'start_date',
         'end_date'
     ];
-    use HasFactory;
+    
+    public function price()
+    {
+        return $this->hasMany('App\Models\Price');
+    }
 }

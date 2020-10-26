@@ -9,10 +9,25 @@ class Workshops extends Model
 {
     use HasFactory;
     
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'phone_number',
         'description',
         'email'
     ];
+     
+    public function address()
+    {
+        return $this->belongsTo('App\Models\Address');
+    }
+    
+    public function workshop_type()
+    {
+        return $this->belongsTo('App\Models\Workshop_Type');
+    }
+    
+    public function visit()
+    {
+        return $this->hasMany('App\Models\Visit');
+    }
 }

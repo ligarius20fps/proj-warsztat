@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    use HasFactory;
+    
     protected $fillable=[
         'name',
         'first_name',
@@ -14,5 +16,14 @@ class Customer extends Model
         'email',
         'phone_number'
     ];
-    use HasFactory;
+    
+    public function visit()
+    {
+        return $this->hasMany('App\Models\Visit');
+    }
+    
+    public function user()
+    {
+        return $this->hasOne('App\Models\User');
+    }
 }
