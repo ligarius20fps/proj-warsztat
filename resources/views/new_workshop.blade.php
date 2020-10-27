@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
         <label for="">Rodzaj warsztatu</label>
-        <select name="workshop_type_id">
+        <select class="form-control" name="workshop_type_id">
             @foreach($workshop_types as $workshop_type)
             <option value="{{ $workshop_type->id }}">{{ $workshop_type->name }}</option>
             @endforeach
@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
         <label for="">Miasto</label>
-        <select name="city_id">
+        <select class="form-control" name="city_id">
             @foreach($cities as $city)
             <option value="{{ $city->id }}">{{ $city->name }}</option>
             @endforeach
