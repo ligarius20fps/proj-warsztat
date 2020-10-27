@@ -7,6 +7,7 @@ use App\Models\Workshops;
 use App\Models\City;
 use App\Models\Address;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -43,6 +44,7 @@ class PagesController extends Controller
         $workshop->email=$request->email;
         $workshop->description=$request->description;
         $workshop->address_id=$address->id;
+        $workshop->user_id=Auth::user()->id;
         $workshop->save();
          /*Address::create([//$request->all()
             'city_id'=>$request['city_id'],
@@ -58,5 +60,11 @@ class PagesController extends Controller
             'description'=>$request['description'],
             'address_id'=>DB::getPdo()->lastInsertedId()]);*/
         return redirect('/account/workshops');
+    }
+    public function my_workshops()
+    {
+        $q=Auth::user()->id;
+        $workshops = Workshops::where('user_id', 'LIKE', '%' .$q. '%');
+        return view('workshops', compact('workshops'));
     }
 }
