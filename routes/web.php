@@ -26,13 +26,11 @@ Route::get('/account', function () {
     return view('account');
 });
 
-Route::get('/account/workshops', function () {
-    return view('workshops');
-});
+Route::get('/account/workshops', [Controllers\PagesController::class, 'my_workshops']);
 
 Route::get('/search', [Controllers\SearchController::class, 'search']);
 
-Route::get('/workshop/{id]',[Controllers\PagesController::class, 'workshop_page'])->name('workshop_page');
+Route::get('/workshop/{id]',[Controllers\PagesController::class, 'workshop_page']);
 
 Auth::routes();
 
