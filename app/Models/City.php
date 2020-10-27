@@ -15,11 +15,11 @@ class City extends Model
     
     public function voivodeship()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Voivodeship');
     }
     
     public function address()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany('App\Models\Address');
     }
 }
