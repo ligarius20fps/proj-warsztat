@@ -18,7 +18,7 @@
                         <!-- Authentication Links -->
                             <form class="form-inline ml-auto" action="{{ url('/search') }}" method="get" role="search">
                             <div class="md-form my-0">
-                            <input type="search" placeholder="Wyszukaj" class="form-control" aria-label="Wyszukaj" name="q">
+                            <input type="search" placeholder="Wyszukaj" class="form-control" aria-describedby="button-addon5" name="q">
                             </div>
                             <div class="input-group-append">
                             <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
