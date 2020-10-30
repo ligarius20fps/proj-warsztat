@@ -30,7 +30,7 @@ Route::get('/account/workshops', [Controllers\PagesController::class, 'my_worksh
 
 Route::get('/search', [Controllers\SearchController::class, 'search']);
 
-Route::get('/workshop/{id]',[Controllers\PagesController::class, 'workshop_page']);
+Route::get('/workshop/{id}',[Controllers\PagesController::class, 'workshop_page']);
 
 Auth::routes();
 
