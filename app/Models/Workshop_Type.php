@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Workshop_Types extends Model
 {
     use HasFactory;
-    
+    protected $table = 'workshop_types';
     protected $fillable=[
         'name'
     ];
     
     public function workshop()
     {
-        return $this->belongsTo('App\Models\Workshop');
+        return $this->hasMany('App\Models\Workshop');
     }
 }
