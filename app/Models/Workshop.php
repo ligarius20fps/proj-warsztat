@@ -23,7 +23,7 @@ class Workshops extends Model
     
     public function workshop_type()
     {
-        return $this->HasOne('App\Models\Workshop_Types');
+        return $this->belongsTo('App\Models\Workshop_Types');
     }
     
     public function visit()
