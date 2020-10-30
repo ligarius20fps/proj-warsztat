@@ -12,7 +12,7 @@
  <tr><td>
     <a href="/workshop/{{ $workshop->id }}"> {{ $workshop->name }} </a>
  </td>
- <td>Rodzaj</td>
+ <td>{{ $workshop->workshop_type->name }}</td>
  <td>Miasto</td>
  </tr>
  @endforeach
