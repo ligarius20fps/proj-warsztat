@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Workshops;
 use App\Models\City;
 use App\Models\Address;
+use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -67,5 +68,43 @@ class PagesController extends Controller
         $q=Auth::user()->id;
         $workshops = Workshops::where('user_id', 'LIKE', '%' .$q. '%');
         return view('workshops', compact('workshops'));
+    }
+    public function new_customer()
+    {
+        $cities=City::all();
+        return view('customer', ['cities'=>$cities]);
+    }
+    public function add_customer(Request $request)
+    {
+        $user=Auth::user();
+        $request->validate([
+            'street_name'=>'required',
+            'postal_code'=>'required',
+            'building_number'=>'required',
+        ]);
+        $address = new Address;
+        $customer = new Customer;
+        $address->city_id=$request->city_id;
+        $address->street_name=$request->street_name;
+        $address->postal_code=$request->postal_code;
+        $address->building_number=$request->building_number;
+        $address->save();
+        $customer->first_name=$request->first_name;
+        $customer->last_name=$request->last_name;
+        if($request->name != '')
+        {
+            $customer->name=$request->name;
+        }
+        else {
+            $customer->name=$request->first_name.''.$request->last_name;
+        }
+        $customer->phone_number=$request->phone_number;
+        $customer->email=$user->email;
+        $customer->address_id=$address->id;
+        $customer->is_registered=1;
+        $customer->save();
+        $user->customer_id=$customer->id;
+        $user->save();
+        return redirect('/account');
     }
 }
