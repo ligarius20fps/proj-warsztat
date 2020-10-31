@@ -3,17 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/warsztat/resources/views/inc/nav.blade.php</file>
-            <file>file:/C:/xampp/htdocs/warsztat/database/migrations/2020_10_19_121140_create_workshops_table.php</file>
-            <file>file:/C:/xampp/htdocs/warsztat/resources/views/new_workshop.blade.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/database/migrations/2020_10_19_123244_create_customers_table.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/resources/views/workshop_page.blade.php</file>
             <file>file:/C:/xampp/htdocs/warsztat/app/Http/Controllers/SearchController.php</file>
-            <file>file:/C:/xampp/htdocs/warsztat/app/Http/Controllers/PagesController.php</file>
-            <file>file:/C:/xampp/htdocs/warsztat/resources/views/home.blade.php</file>
             <file>file:/C:/xampp/htdocs/warsztat/routes/web.php</file>
             <file>file:/C:/xampp/htdocs/warsztat/resources/views/search.blade.php</file>
-            <file>file:/C:/xampp/htdocs/warsztat/resources/views/workshops.blade.php</file>
             <file>file:/C:/xampp/htdocs/warsztat/resources/views/account.blade.php</file>
-            <file>file:/C:/xampp/htdocs/warsztat/app/Models/Workshop.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/resources/views/inc/nav.blade.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/app/Providers/AppServiceProvider.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/resources/views/new_workshop.blade.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/database/migrations/2020_10_19_122640_create_visits_table.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/app/Http/Controllers/PagesController.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/resources/views/customer.blade.php</file>
+            <file>file:/C:/xampp/htdocs/warsztat/resources/views/home.blade.php</file>
         </group>
     </open-files>
 </project-private>
