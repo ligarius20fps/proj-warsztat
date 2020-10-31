@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-    @foreach($workshops as $workshop) //to jest glupie
+    @foreach($workshops as $workshop)
     <h1>{{ $workshop->name }}</h1>
     <p>{{ $workshop->description }}</p>
     @endforeach
