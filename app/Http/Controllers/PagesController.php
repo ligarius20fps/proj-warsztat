@@ -14,8 +14,8 @@ class PagesController extends Controller
 {
     public function workshop_page(int $id)
     {
-        $workshops=DB::select("select * from workshops where id=$id");
-        return view('workshop_page', ['workshops'=>$workshops]);
+        $workshop=Workshops::find($id);/*DB::select("select * from workshops where id=$id")*/;
+        return view('workshop_page', ['workshop'=>$workshop]);
     }
     public function new_workshop()
     {
