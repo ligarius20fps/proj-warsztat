@@ -13,11 +13,13 @@
     <a href="/workshop/{{ $workshop->id }}"> {{ $workshop->name }} </a>
  </td>
  <td>{{ $workshop->workshop_type->name }}</td>
- <td>{{ $workshop->address->city->name }}</td>
+ <td><i class="fas fa-map-marker-alt"></i>{{ $workshop->address->city->name }}</td>
  </tr>
  @endforeach
  <tbody>
  </table>
-
+ <div class="container">
+     {!! $workshops->render() !!}
+ </div>
 </div>
  @endsection
