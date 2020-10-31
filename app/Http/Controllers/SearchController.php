@@ -18,8 +18,9 @@ class SearchController extends Controller
             join('cities','cities.id','=','addresses.city_id')
             ->where(['workshops.name' => '%' .$q. '%'])
             ->orWhere(['cities.name' => '%' .$q. '%'])
-            ->orWhere(['workshop_types.name' => '%' .$q. '%'])*/->get();
+            ->orWhere(['workshop_types.name' => '%' .$q. '%'])*/->paginate(10);
     //if(count($workshops)>0)
+        $workshops->appends(array('q'=>$q));
         return view('search', compact('workshops'));
     /*else
         return view('search')->withMessage('Brak wyników');*/
