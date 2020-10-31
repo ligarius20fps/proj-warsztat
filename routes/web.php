@@ -37,4 +37,7 @@ Auth::routes();
 Route::post('/account/workshops', [Controllers\PagesController::class, 'add_workshop']);
 Route::get('/account/workshops/new', [Controllers\PagesController::class, 'new_workshop']);
 
+Route::post('/account', [Controllers\PagesController::class, 'add_customer']);
+Route::get('/account/customer', [Controllers\PagesController::class, 'new_customer']);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
