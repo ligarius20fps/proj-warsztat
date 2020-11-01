@@ -31,6 +31,9 @@ Route::get('/account/workshops', [Controllers\PagesController::class, 'my_worksh
 Route::get('/search', [Controllers\SearchController::class, 'search']);
 
 Route::get('/workshop/{id}',[Controllers\PagesController::class, 'workshop_page']);
+Route::get('/workshop/{id}/visits',[Controllers\PagesController::class, 'workshop_visits']);
+Route::get('/account/visits',[Controllers\PagesController::class, 'customer_visits']);
+Route::get('/workshop/{id}/appoint',[Controllers\VisitController::class, 'button_clicked']);
 
 Auth::routes();
 
@@ -38,6 +41,6 @@ Route::post('/account/workshops', [Controllers\PagesController::class, 'add_work
 Route::get('/account/workshops/new', [Controllers\PagesController::class, 'new_workshop']);
 
 Route::post('/account', [Controllers\PagesController::class, 'add_customer']);
-Route::get('/account/customer', [Controllers\PagesController::class, 'new_customer']);
+Route::get('/account/customer/new', [Controllers\PagesController::class, 'new_customer']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

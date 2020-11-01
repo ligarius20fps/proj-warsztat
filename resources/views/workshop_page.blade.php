@@ -6,6 +6,7 @@
     <p>{{ $workshop->description }}</p>
     <h3>Opinie</h3>
     <h3>Umów się na wizytę</h3>
-    <button class="btn btn-primary">Umów się</button>
+    <a href="/workshop/{{ $workshop->id }}/appoint" class="btn btn-primary">Umów się</a>
+    
     </div>
 @endsection

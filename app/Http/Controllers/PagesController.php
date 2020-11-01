@@ -7,6 +7,7 @@ use App\Models\Workshops;
 use App\Models\City;
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\Visit;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -48,31 +49,18 @@ class PagesController extends Controller
         $workshop->address_id=$address->id;
         $workshop->user_id=Auth::user()->id;
         $workshop->save();
-         /*Address::create([//$request->all()
-            'city_id'=>$request['city_id'],
-            'street_name'=>$request['street_name'],
-            'postal_code'=>$request['postal_code'],
-            'building_number'=>$request['building_number'],
-        ]);
-        Workshops::create([//$request->all()/*
-            'name'=>$request['name'],
-            'workshop_type_id'=>$request['workshop_type_id'],
-            'phone_number'=>$request['phone_number'],
-            'email'=>$request['email'],
-            'description'=>$request['description'],
-            'address_id'=>DB::getPdo()->lastInsertedId()]);*/
         return redirect('/account/workshops');
     }
     public function my_workshops()
     {
         $q=Auth::user()->id;
-        $workshops = Workshops::where('user_id', 'LIKE', '%' .$q. '%');
-        return view('workshops', compact('workshops'));
+        $workshops = DB::select("select * from workshops where user_id=$q")/*Workshops::where('user_id', '=', $q)*/;
+        return view('workshops', ['workshops'=>$workshops]);
     }
     public function new_customer()
     {
         $cities=City::all();
-        return view('customer', ['cities'=>$cities]);
+        return view('new_customer', ['cities'=>$cities]);
     }
     public function add_customer(Request $request)
     {
@@ -107,4 +95,21 @@ class PagesController extends Controller
         $user->save();
         return redirect('/account');
     }
+    public function workshop_visits(int $id)
+    {
+        $visits=Visit::where('workshop_id',$id)->get();
+        return view('visits', ['visits'=>$visits]);
+    }
+    
+    public function customer_visits()
+    {
+        $customerid=Auth::user()->customer->id;
+        $visits=Visit::where('customer_id',$customerid)->get();
+        return view('visits', ['visits'=>$visits]);
+    }
+
+
+    //niech sprawdzi czy customer istnieje
+    //if($user->customer==NULL) ...
+    //else //uzupelniamy formularz automatycznie
 }

@@ -16,7 +16,7 @@ class Visit extends Model
     
     public function workshop()
     {
-        return $this->belongsTo('App\Models\Workshop');
+        return $this->belongsTo('App\Models\Workshops');
     }
     
     public function visit_service_type()

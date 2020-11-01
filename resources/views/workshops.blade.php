@@ -9,7 +9,8 @@
  @foreach($workshops as $workshop)
  <tr><td>
     <a href="/workshop/{{ $workshop->id }}"> {{ $workshop->name }} </a>
- </td></tr>
+     </td><td><button class="btn btn-primary">Edytuj</button></td>
+     <td><a href="/workshop/{{ $workshop->id }}/visits" class="btn btn-primary">Historia wizyt</a></td></tr>
  @endforeach
  <tbody>
  </table>
