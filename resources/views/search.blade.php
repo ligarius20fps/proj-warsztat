@@ -5,6 +5,11 @@
 
  <button class="btn btn-primary">Filtruj</button>
  <br><br>
+ @if($count!=0)
+ Wyswietlam wyniki dla: &quot;<b>{{ $q }}</b>&quot;
+ @else
+ Brak wyników
+ @endif
  <table class="table table-striped">
      <thead></thead>
      <tbody>
