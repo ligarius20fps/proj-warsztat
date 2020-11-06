@@ -9,7 +9,7 @@ use Auth;
 
 class VisitController extends Controller
 {
-    public function button_clicked(int $id)
+    public function new_visit(int $id)
     {
         $workshop= Workshops::find($id);
         if(Auth::user()->user_type==1)//jesli uzytkownik jest zwykly
@@ -29,5 +29,21 @@ class VisitController extends Controller
                 
             }
         }
+    }
+    public function visit_page(int $id)
+    {
+        $visit= Visit::find($id);
+        return view('visit_page', compact('visit'));
+    }
+    public function update_visit(int $id, Request $request)
+    {
+        $visit=Visit::find($id);
+        if($request->date!=NULL)
+        {
+            $visit->date=$request->date;
+        }
+        $visit->status=$request->status;
+        $visit->save();
+        return redirect()->back();
     }
 }
