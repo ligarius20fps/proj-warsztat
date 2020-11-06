@@ -104,7 +104,7 @@ class PagesController extends Controller
     public function customer_visits()
     {
         $customerid=Auth::user()->customer->id;
-        $visits=Visit::where('customer_id',$customerid)->get();
+        $visits=Visit::where('customer_id',$customerid)->orderBy('status', 'asc')->get();
         return view('visits', ['visits'=>$visits]);
     }
 
