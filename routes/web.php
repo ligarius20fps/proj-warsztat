@@ -33,13 +33,15 @@ Route::get('/search', [Controllers\SearchController::class, 'search']);
 Route::get('/workshop/{id}',[Controllers\PagesController::class, 'workshop_page']);
 Route::get('/workshop/{id}/visits',[Controllers\PagesController::class, 'workshop_visits']);
 Route::get('/account/visits',[Controllers\PagesController::class, 'customer_visits']);
-Route::get('/workshop/{id}/appoint',[Controllers\VisitController::class, 'button_clicked']);
+Route::get('/workshop/{id}/appoint',[Controllers\VisitController::class, 'new_visit']);
+Route::get('/visit/{id}',[Controllers\VisitController::class, 'visit_page']);
+
 
 Auth::routes();
 
 Route::post('/account/workshops', [Controllers\PagesController::class, 'add_workshop']);
 Route::get('/account/workshops/new', [Controllers\PagesController::class, 'new_workshop']);
-
+Route::post('/visit/{id}/update',[Controllers\VisitController::class, 'update_visit']);
 Route::post('/account', [Controllers\PagesController::class, 'add_customer']);
 Route::get('/account/customer/new', [Controllers\PagesController::class, 'new_customer']);
 
