@@ -10,7 +10,9 @@
         @else
      <a class="btn btn-primary" href="/account/customer">Edytuj dane kontaktowe</a>
         @endif
-     <a class="btn btn-primary" href="/account/visits">Historia wizyt</a>
+        @if(Auth::user()->customer!=NULL)
+     <a class="btn btn-primary" href="/account/visits">Moje wizyty</a>
+         @endif
      @elseif(Auth::user()->user_type == 2)
      <a class="btn btn-primary" href="/account/workshops">Moje warsztaty</a>
      @endif
