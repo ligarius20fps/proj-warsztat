@@ -44,5 +44,6 @@ Route::get('/account/workshops/new', [Controllers\PagesController::class, 'new_w
 Route::post('/visit/{id}/update',[Controllers\VisitController::class, 'update_visit']);
 Route::post('/account', [Controllers\PagesController::class, 'add_customer']);
 Route::get('/account/customer/new', [Controllers\PagesController::class, 'new_customer']);
+Route::get('/account/customer/edit',  [Controllers\PagesController::class, 'update_customer']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -65,6 +65,8 @@ class PagesController extends Controller
     public function add_customer(Request $request)
     {
         $user=Auth::user();
+        if($user->customer==NULL)
+        {
         $request->validate([
             'street_name'=>'required',
             'postal_code'=>'required',
@@ -72,28 +74,64 @@ class PagesController extends Controller
         ]);
         $address = new Address;
         $customer = new Customer;
-        $address->city_id=$request->city_id;
-        $address->street_name=$request->street_name;
-        $address->postal_code=$request->postal_code;
-        $address->building_number=$request->building_number;
+        }
+        else
+        {
+               $customer=$user->customer;
+               $address=$customer->address;
+        }
+        if($request->city_id!=NULL)
+        {
+            $address->city_id=$request->city_id;
+        }
+        if($request->street_name!="")
+        {
+            $address->street_name=$request->street_name;
+        }
+        if($request->postal_code!="")
+        {
+            $address->postal_code=$request->postal_code;
+        }
+        if($request->building_number!="")
+        {
+            $address->building_number=$request->building_number;
+        }
         $address->save();
-        $customer->first_name=$request->first_name;
-        $customer->last_name=$request->last_name;
+        if($request->first_name!="")
+        {
+            $customer->first_name=$request->first_name;
+        }
+        if($request->last_name!="")
+        {
+            $customer->last_name=$request->last_name;
+        }
         if($request->name != '')
         {
             $customer->name=$request->name;
         }
         else {
-            $customer->name=$request->first_name.''.$request->last_name;
+            $customer->name=$request->first_name.' '.$request->last_name;
         }
-        $customer->phone_number=$request->phone_number;
-        $customer->email=$user->email;
+        if($request->phone_number!="")
+        {
+            $customer->phone_number=$request->phone_number;
+        }
+        if($user->email!="")
+        {
+            $customer->email=$user->email;
+        }
         $customer->address_id=$address->id;
         $customer->is_registered=1;
         $customer->save();
         $user->customer_id=$customer->id;
         $user->save();
         return redirect('/account');
+    }
+    public function update_customer()
+    {
+        $cities=City::all();
+        $customer=Customer::find(Auth::user()->customer_id);
+        return view('new_customer', ['cities'=>$cities, 'customer'=>$customer]);
     }
     public function workshop_visits(int $id)
     {

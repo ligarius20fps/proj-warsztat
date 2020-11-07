@@ -2,6 +2,18 @@
 @section('content')
 <div class="container">
 <h1>Dane kontaktowe</h1>
+@isset($message)
+{{ $message }}
+@endisset
+@if(Auth::user()->customer!=NULL)
+{{ $customer->name }}<br/>
+{{ $customer->address->street_name }} 
+{{ $customer->address->building_number }}<br/>
+{{ $customer->address->postal_code }}  
+{{ $customer->address->city->name }}  <br/>
+tel. {{ $customer->phone_number }}<br/>
+{{ $customer->email }}<br/>
+@endif
 <form action="{{url('/account')}}" method="POST">
 @csrf
 <div class="form-group">

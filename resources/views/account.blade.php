@@ -8,7 +8,7 @@
         @if(Auth::user()->customer==NULL)
      <a class="btn btn-primary" href="/account/customer/new">Dodaj dane kontaktowe</a>
         @else
-     <a class="btn btn-primary" href="/account/customer">Edytuj dane kontaktowe</a>
+     <a class="btn btn-primary" href="/account/customer/edit">Edytuj dane kontaktowe</a>
         @endif
         @if(Auth::user()->customer!=NULL)
      <a class="btn btn-primary" href="/account/visits">Moje wizyty</a>

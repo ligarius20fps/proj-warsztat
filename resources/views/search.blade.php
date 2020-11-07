@@ -6,7 +6,7 @@
  <button class="btn btn-primary">Filtruj</button>
  <br><br>
  @if($count!=0)
- Wyswietlam wyniki dla: &quot;<b>{{ $q }}</b>&quot;
+ Wyswietlanie wyników dla: <b>{{ $q }}</b>
  @else
  Brak wyników
  @endif

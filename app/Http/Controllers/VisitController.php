@@ -26,7 +26,8 @@ class VisitController extends Controller
             }
             else//a jesli nie
             {
-                
+                //$message="Nie istnieje klient dla danego konta, proszę utworzyć";
+                return redirect("account/customer/new");
             }
         }
     }
