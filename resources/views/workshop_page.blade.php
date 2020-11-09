@@ -6,7 +6,10 @@
     <p>{{ $workshop->description }}</p>
     <h3>Opinie</h3>
     <h3>Umów się na wizytę</h3>
-    <a href="/workshop/{{ $workshop->id }}/appoint" class="btn btn-primary">Umów się</a>
-    
+    @if(Auth::user()!=NULL)
+    <a href="/workshop/{{ $workshop->id }}/appoint/0" class="btn btn-primary">Umów się</a>
+    @else
+    @include('inc.popup')
+    @endif
     </div>
 @endsection

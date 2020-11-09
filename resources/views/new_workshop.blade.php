@@ -34,7 +34,7 @@
     </div>
     <div class="form-group">
         <label for="">Nr Budynku</label>
-        <input type="number" class="form-control" name="building_number">
+        <input type="text" class="form-control" name="building_number">
     </div>
     <div class="form-group">
         <label for="">Nr telefonu</label>

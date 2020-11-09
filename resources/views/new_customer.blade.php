@@ -5,7 +5,7 @@
 @isset($message)
 {{ $message }}
 @endisset
-@if(Auth::user()->customer!=NULL)
+@if(Auth::user()!=NULL && Auth::user()->customer!=NULL)
 {{ $customer->name }}<br/>
 {{ $customer->address->street_name }} 
 {{ $customer->address->building_number }}<br/>
@@ -14,7 +14,11 @@
 tel. {{ $customer->phone_number }}<br/>
 {{ $customer->email }}<br/>
 @endif
+@if(Auth::user()!=null)
 <form action="{{url('/account')}}" method="POST">
+@else
+<form action="/workshop/{{ request()->route('id') }}" method="POST">
+@endif
 @csrf
 <div class="form-group">
         <label for="">Imię</label>
@@ -46,12 +50,16 @@ tel. {{ $customer->phone_number }}<br/>
     </div>
     <div class="form-group">
         <label for="">Nr Budynku</label>
-        <input type="number" class="form-control" name="building_number">
+        <input type="text" class="form-control" name="building_number">
     </div>
     <div class="form-group">
         <label for="">Nr telefonu</label>
         <input type="text" class="form-control" name="phone_number">
     </div>
+    @if( Auth::user() == NULL)
+        <label for="">Adres email</label>
+        <input type="email" class="form-control" name="email">
+    @endif
 <button class="btn btn-primary" type="submit">Dodaj</button>
 </form>
 </div>

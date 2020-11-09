@@ -65,20 +65,26 @@ class PagesController extends Controller
     public function add_customer(Request $request)
     {
         $user=Auth::user();
-        if($user->customer==NULL)
+        if( $user==NULL || $user->customer==NULL)
         {
         $request->validate([
             'street_name'=>'required',
             'postal_code'=>'required',
             'building_number'=>'required',
         ]);
+        if($user==NULL)
+        {
+            $request->validate([
+            'email'=>'required',
+        ]);
+        }
         $address = new Address;
         $customer = new Customer;
         }
         else
         {
-               $customer=$user->customer;
-               $address=$customer->address;
+            $customer=$user->customer;
+            $address=$customer->address;
         }
         if($request->city_id!=NULL)
         {
@@ -116,16 +122,28 @@ class PagesController extends Controller
         {
             $customer->phone_number=$request->phone_number;
         }
-        if($user->email!="")
+        if($user!=NULL && $user->email!="")
         {
             $customer->email=$user->email;
+        }
+        else
+        {
+            $customer->email=$request->email;
         }
         $customer->address_id=$address->id;
         $customer->is_registered=1;
         $customer->save();
-        $user->customer_id=$customer->id;
-        $user->save();
-        return redirect('/account');
+        if($user!=NULL)
+        {
+            $user->customer_id=$customer->id;
+            $user->save();
+            return redirect('/account');
+        }
+        else
+        {
+            $id=$request->route('id');
+            return redirect("/workshop/$id/appoint/$customer->id");
+        }
     }
     public function update_customer()
     {
