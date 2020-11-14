@@ -56,7 +56,7 @@
             @endif
             </td><td>{{ $visit->date }}</td>
             @if(Auth::user()->user_type==1)
-            <td><button class="btn btn-primary">Wystaw Ocenę</button></td>
+            <td><a href="/visit/{{ $visit->id }}/review" class="btn btn-primary">Wystaw Ocenę</a></td>
             @endif
             <td><a href="/visit/{{ $visit->id}}" class="btn btn-primary">Szczegóły</a></td></tr>
         @endif

@@ -8,6 +8,8 @@ use App\Models\City;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Visit;
+use App\Models\Service_Type;
+use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -15,8 +17,12 @@ class PagesController extends Controller
 {
     public function workshop_page(int $id)
     {
-        $workshop=Workshops::find($id);/*DB::select("select * from workshops where id=$id")*/;
-        return view('workshop_page', ['workshop'=>$workshop]);
+        $service_types= Service_Type::all();
+        $workshop=Workshops::find($id);
+        $reviews=Review::where('visits.workshop_id',$id)->
+                join('visits','reviews.visit_id','=','visits.id')
+                ->get();
+        return view('workshop_page', ['workshop'=>$workshop,'service_types'=>$service_types,'reviews'=>$reviews]);
     }
     public function new_workshop()
     {

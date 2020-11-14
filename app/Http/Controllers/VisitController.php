@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Workshops;
 use App\Models\Visit;
 use App\Models\Customer;
+use App\Models\Review;
 use Auth;
 
 class VisitController extends Controller
@@ -57,5 +58,27 @@ class VisitController extends Controller
         $visit->status=$request->status;
         $visit->save();
         return redirect()->back();
+    }
+    public function new_review(int $id)
+    {
+        $visit=Visit::find($id);
+        return view('review', compact('visit'));
+    }
+    public function add_review(int $id, Request $request)
+    {
+        $visit=Visit::find($id);
+        $request->validate([
+            'description'=>'required|min:15|max:250',
+            'rating'=>'required'
+        ]);
+        $review=new Review;
+        $review->description=$request->description;
+        $review->rating=$request->rating;
+        $review->user_id=Auth::user()->id;
+        $review->visit_id=$id;
+        $review->save();
+        
+        return redirect("/workshop/$visit->workshop_id");
+        //zaktualizować średnią dla warsztatu
     }
 }

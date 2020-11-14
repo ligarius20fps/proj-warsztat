@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             CitiesTableSeeder::class, 
             Workshop_TypesTableSeeder::class,
             AddressesTableSeeder::class,
-            WorkshopsTableSeeder::class
+            WorkshopsTableSeeder::class,
+            Service_TypesTableSeeder::class
         ]);
     }
 }
