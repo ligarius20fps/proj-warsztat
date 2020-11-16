@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Workshops;
 use App\Models\Visit;
@@ -67,6 +68,7 @@ class VisitController extends Controller
     public function add_review(int $id, Request $request)
     {
         $visit=Visit::find($id);
+        $workshop=Workshops::find($visit->workshop_id);
         $request->validate([
             'description'=>'required|min:15|max:250',
             'rating'=>'required'
@@ -77,8 +79,11 @@ class VisitController extends Controller
         $review->user_id=Auth::user()->id;
         $review->visit_id=$id;
         $review->save();
-        
-        return redirect("/workshop/$visit->workshop_id");
+        $average=0;//podzapytanie żeby policzyć średnią
+        //wtedy można poprostu zrobić update
+        $workshop->rating=DB::table('reviews')->where('visits.workshop_id', $workshop->id)->join('visits', 'reviews.visit_id','=', 'visits.id')->avg('rating');
+        $workshop->save();
+        return redirect("/workshop/$workshop->id");
         //zaktualizować średnią dla warsztatu
     }
 }

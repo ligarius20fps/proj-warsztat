@@ -19,8 +19,8 @@ class PagesController extends Controller
     {
         $service_types= Service_Type::all();
         $workshop=Workshops::find($id);
-        $reviews=Review::where('visits.workshop_id',$id)->
-                join('visits','reviews.visit_id','=','visits.id')
+        $reviews=Review::rightJoin('visits','visits.id','=','reviews.visit_id')->
+                where('visits.workshop_id',$id)
                 ->get();
         return view('workshop_page', ['workshop'=>$workshop,'service_types'=>$service_types,'reviews'=>$reviews]);
     }

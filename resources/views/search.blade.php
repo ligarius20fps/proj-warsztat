@@ -19,6 +19,11 @@
  </td>
  <td>{{ $workshop->workshop_type->name }}</td>
  <td><i class="fas fa-map-marker-alt"></i>{{ $workshop->address->city->name }}</td>
+  <td>@if($workshop->rating!=NULL){{ $workshop->rating }}
+      @else
+      Brak opinii
+      @endif
+  </td>
  </tr>
  @endforeach
  <tbody>

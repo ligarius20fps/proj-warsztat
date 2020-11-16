@@ -5,13 +5,15 @@
     <h5>{{ $workshop->workshop_type->name }}  |  <i class="fas fa-map-marker-alt"></i>{{ $workshop->address->city->name }}</h5>
     <p>{{ $workshop->description }}</p>
     <h3>Opinie</h3>
-    <div >
     @foreach($reviews as $review)
-    <h4>{{$review->user->name}}&emsp;Ocenił na: {{$review->rating}}</h4>
-    {{$review->created_at}}
-    <br/><div>{{ $review->description }}</div><br/>
-    @endforeach
+    <div class="card">
+    <div class="card-header"><b>{{$review->user->name}}</b>&emsp;Ocenił na: <b>{{$review->rating}}</b>&emsp;{{$review->created_at}}</div>
+    <div class="card-body">
+    <div class="clearfix">{{ $review->description }}</div><br/>
     </div>
+    </div>
+    <br/>
+    @endforeach
     <h3>Umów się na wizytę</h3>
     <form>
     <select name="service_type" class="form-control">

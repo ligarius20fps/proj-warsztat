@@ -17,6 +17,7 @@ class CreateWorkshopsTable extends Migration
             $table->id();
             $table->string('name');
             $table->char('phone_number',9);
+            $table->decimal('rating')->nullable();
             $table->string('description')->nullable();
             $table->string('email')->unique();
             $table->foreignId('workshop_type_id');
