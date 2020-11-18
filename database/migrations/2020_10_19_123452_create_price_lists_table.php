@@ -15,9 +15,7 @@ class CreatePriceListsTable extends Migration
     {
         Schema::create('price_lists', function (Blueprint $table) {
             $table->id();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->integer('status');
+            $table->foreignId('workshop_id');
             $table->timestamps();
         });
     }

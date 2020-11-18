@@ -1,9 +1,21 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+@if(request()->route('id')==null)
 <h1>Dodaj warsztat</h1>
+@else
+<h1>Edytuj warsztat</h1>
+    @if($hasPriceList==0)
+    <a href="/account/workshops/{{ $workshop->id }}/price-list/create" class="btn btn-primary">Dodaj Cennik</a><br/><br/>
+    @else
+    <a href="/account/workshops/{{ $workshop->id }}/price-list" class="btn btn-primary">Edytuj Cennik</a><br/><br/>
+    @endif
+@endif
 <form action="{{url('/account/workshops')}}" method="POST">
     @csrf
+    @if(request()->route('id')!=null)
+    <input type="hidden" value="{{ request()->route('id') }}" name="workshop_id">
+    @endif
     <div class="form-group">
         <label for="">Nazwa warsztatu</label>
         <input type="text" class="form-control" name="name">

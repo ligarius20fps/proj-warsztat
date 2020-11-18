@@ -20,6 +20,6 @@ class Service_Type extends Model
     
     public function price()
     {
-        return $this->hasOne('App\Models\Price');
+        return $this->hasMany('App\Models\Price');
     }
 }

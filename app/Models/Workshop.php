@@ -30,4 +30,8 @@ class Workshops extends Model
     {
         return $this->hasMany('App\Models\Visit');
     }
+    public function price_list()
+    {
+        return $this->hasOne('App\Models\Price_List');
+    }
 }

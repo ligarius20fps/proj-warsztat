@@ -10,6 +10,8 @@ use App\Models\Customer;
 use App\Models\Visit;
 use App\Models\Service_Type;
 use App\Models\Review;
+use App\Models\Price_List;
+use App\Models\Price;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -17,21 +19,49 @@ class PagesController extends Controller
 {
     public function workshop_page(int $id)
     {
-        $service_types= Service_Type::all();
         $workshop=Workshops::find($id);
-        $reviews=Review::rightJoin('visits','visits.id','=','reviews.visit_id')->
+        $reviews=Review::join('visits','visits.id','=','reviews.visit_id')->
                 where('visits.workshop_id',$id)
                 ->get();
-        return view('workshop_page', ['workshop'=>$workshop,'service_types'=>$service_types,'reviews'=>$reviews]);
+        $price_list=Price_List::where('workshop_id',$id)->first();
+        if($price_list!=null)
+        {
+        $prices=Price::where('price_list_id',$price_list->id)->get();
+        $service_types= Service_Type::where('price.price_list_id',$price_list->id)->join('prices', 'service_type.id','=','prices.service_type_id');
+        }
+        else
+        {
+            $prices=null;
+            $service_types= Service_Type::all();
+        }    
+        return view('workshop_page', ['workshop'=>$workshop,'service_types'=>$service_types,'reviews'=>$reviews,'prices'=>$prices]);
     }
     public function new_workshop()
     {
-        $cities=City::all();
+        $cities=City::all()->sortBy('name');
         $workshop_types=DB::select("select * from workshop_types");
         return view('new_workshop', ['cities'=>$cities, 'workshop_types'=>$workshop_types]);
     }
+    public function update_workshop(int $id)
+    {
+        $cities=City::all()->sortBy('name');
+        $workshop_types=DB::select("select * from workshop_types");
+        $workshop= Workshops::find($id);
+        if(Price_List::where('workshop_id',$id)->get()->count()!=0)
+        {
+            $hasPriceList=1;
+        }
+        else
+        {
+            $hasPriceList=0;
+        }
+        return view('new_workshop', ['cities'=>$cities, 'workshop_types'=>$workshop_types, 'workshop'=>$workshop, 'hasPriceList'=>$hasPriceList]);
+    }
     public function add_workshop(Request $request)
     {
+        $id=$request->workshop_id;
+        if($id==null)
+        {
         $request->validate([
             'street_name'=>'required',
             'postal_code'=>'required',
@@ -42,16 +72,49 @@ class PagesController extends Controller
         ]);
         $address = new Address;
         $workshop = new Workshops;
+        }
+        else
+        {
+            $workshop = Workshops::find($id);
+            $address= Address::find($workshop->address_id);
+        }
+        if($request->city_id!=NULL)
+        {
         $address->city_id=$request->city_id;
+        }
+        if($request->street_name!="")
+        {
         $address->street_name=$request->street_name;
+        }
+        if($request->postal_code!="")
+        {
         $address->postal_code=$request->postal_code;
+        }
+        if($request->building_number!="")
+        {
         $address->building_number=$request->building_number;
+        }
         $address->save();
+        if($request->name!="")
+        {
         $workshop->name=$request->name;
+        }
+        if($request->workshop_type_id!=NULL)
+        {
         $workshop->workshop_type_id=$request->workshop_type_id;
+        }
+        if($request->phone_number!="")
+        {
         $workshop->phone_number=$request->phone_number;
+        }
+        if($request->email!="")
+        {
         $workshop->email=$request->email;
+        }
+        if($request->description!="")
+        {
         $workshop->description=$request->description;
+        }
         $workshop->address_id=$address->id;
         $workshop->user_id=Auth::user()->id;
         $workshop->save();
@@ -169,8 +232,49 @@ class PagesController extends Controller
         $visits=Visit::where('customer_id',$customerid)->orderBy('status', 'asc')->get();
         return view('visits', ['visits'=>$visits]);
     }
-
-
+    public function create_price_list(int $id)
+    {
+        $price_list=new Price_List;
+        $price_list->workshop_id=$id;
+        $price_list->save();
+        return redirect()->back();
+    }
+    public function price_list(int $id)
+    {
+        $workshop= Workshops::find($id);
+        $price_list=Price_List::where('workshop_id',$id)->first();
+        $service_types= Service_Type::all();
+        $prices=Price::where('price_list_id',$price_list->id)->get();
+        return view('price_list',['workshop'=>$workshop,'price_list'=>$price_list,'prices'=>$prices,'service_types'=>$service_types]);
+    }
+    public function new_price(int $id, Request $request)
+    {
+        $price=new Price;
+        $price_list=Price_List::where("workshop_id",$id)->first();
+        $request->validate([
+            'service_type'=>'required',
+            'price'=>'required',
+        ]);
+        $price->service_type_id=$request->service_type;
+        $price->price=$request->price;
+        $price->price_list_id=$price_list->id;
+        if($request->has('agreeable'))
+        {
+            $price->agreeable=1;
+        }
+        else
+        {
+            $price->agreeable=0;
+        }
+        $price->save();
+        return redirect()->back();
+    }
+    public function remove_price(int $id)
+    {
+        $price= Price::find($id);
+        $price->delete();
+        return redirect()->back();
+    }
     //niech sprawdzi czy customer istnieje
     //if($user->customer==NULL) ...
     //else //uzupelniamy formularz automatycznie
