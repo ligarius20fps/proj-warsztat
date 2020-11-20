@@ -46,7 +46,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Customer');
     }//nie wiem czy dawać belongsTo czy hasOne
-    
+    public function workshop()
+    {
+        return $this->hasMany('App\Models\Workshops');
+    }
     public function review()
     {
         return $this->hasMany('App\Models\Review');

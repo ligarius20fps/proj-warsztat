@@ -52,6 +52,15 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item" id="notis">
+                            <a href="/account/notifications">
+                                @if(Auth::user()->unreadNotifications->count()==0)
+                                <i class="fa fa-bell"></i>
+                                @else
+                                <i class="fa fa-bell"></i>{{Auth::user()->unreadNotifications->count()}}
+                                @endif
+                            </a>
+                            </li>
                         @endguest
                     </ul>
                 </div>

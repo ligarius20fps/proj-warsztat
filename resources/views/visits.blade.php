@@ -11,7 +11,7 @@
      <thead></thead>
      <tbody>
  @foreach($visits as $visit)
-         @if($visit->status==0)
+         @if($visit->status==0 || $visit->status==1)
          <tr><td>
             @if(Auth::user()->user_type==1)
                 {{ $visit->workshop->name }}
@@ -19,6 +19,12 @@
                 {{ $visit->customer->name }}
             @endif
             </td><td>{{ $visit->date }}</td>
+            <td>@if($visit->status==0)
+                Oczekiwanie na potwierdzenie
+                @else
+                Oczekiwanie na realizację
+                @endif
+            </td>
             <td><a href="/visit/{{ $visit->id}}" class="btn btn-primary">Szczegóły</a></td></tr>
          @endif
  @endforeach
@@ -29,7 +35,7 @@
      <thead></thead>
      <tbody>
     @foreach($visits as $visit)
-        @if($visit->status==1)
+        @if($visit->status==2)
         <tr><td>
             @if(Auth::user()->user_type==1)
                 {{ $visit->workshop->name }}
@@ -47,7 +53,7 @@
     <thead></thead>
     <tbody>
     @foreach($visits as $visit)
-        @if($visit->status==2)
+        @if($visit->status==3)
         <tr><td>
             @if(Auth::user()->user_type==1)
                 {{ $visit->workshop->name }}

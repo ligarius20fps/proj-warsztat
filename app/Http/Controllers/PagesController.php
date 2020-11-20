@@ -275,6 +275,10 @@ class PagesController extends Controller
         $price->delete();
         return redirect()->back();
     }
+    public function notifications()
+    {
+        return view ('notifications');
+    }
     //niech sprawdzi czy customer istnieje
     //if($user->customer==NULL) ...
     //else //uzupelniamy formularz automatycznie

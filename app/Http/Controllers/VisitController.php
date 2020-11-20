@@ -8,6 +8,7 @@ use App\Models\Workshops;
 use App\Models\Visit;
 use App\Models\Customer;
 use App\Models\Review;
+use App\Notifications\NewVisit;
 use Auth;
 
 class VisitController extends Controller
@@ -25,6 +26,7 @@ class VisitController extends Controller
                 $visit->workshop_id=$id;
                 $visit->date=date("Y-m-d");
                 $visit->save();
+                $workshop->user->notify(new NewVisit($visit->customer, $workshop, $visit));
                 return redirect("workshop/$workshop->id");
             }
             else//a jesli nie
@@ -41,6 +43,7 @@ class VisitController extends Controller
                 $visit->workshop_id=$id;
                 $visit->date=date("Y-m-d");
                 $visit->save();
+                $workshop->user->notify(new NewVisit($visit->customer, $workshop, $visit));
                 return redirect("workshop/$workshop->id");
         }
     }
@@ -85,5 +88,30 @@ class VisitController extends Controller
         $workshop->save();
         return redirect("/workshop/$workshop->id");
         //zaktualizować średnią dla warsztatu
+    }
+    public function reject_visit(int $id)
+    {
+        $visit= Visit::find($id);
+        $workshop=$visit->workshop;
+        $visit->delete();
+        return redirect("/workshop/$workshop->id/visits");
+    }
+    public function accept_visit(int $id)
+    {
+        $visit= Visit::find($id);
+        $visit->status=1;
+        $visit->save();
+        return redirect()->back();
+    }
+    public function notification_clicked(String $notif_id, int $visit_id)
+    {
+        $notification=Auth::user()->unreadNotifications->where('id',$notif_id)->first();
+        $notification->markAsRead();
+        switch($notification->type)
+        {
+            case 'App\Notifications\NewVisit':
+                return redirect("/visit/$visit_id");
+                break;
+        }
     }
 }

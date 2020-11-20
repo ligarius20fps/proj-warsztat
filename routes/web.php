@@ -54,4 +54,8 @@ Route::get('/account/workshops/{id}/price-list', [Controllers\PagesController::c
 Route::get('/account/workshops/{id}/price-list/create', [Controllers\PagesController::class, 'create_price_list']);
 Route::post('/account/workshops/{id}/price-list/add', [Controllers\PagesController::class, 'new_price']);
 Route::get('/price/{id}/remove', [Controllers\PagesController::class, 'remove_price']);
+Route::get('/account/notifications',[Controllers\PagesController::class, 'notifications'] );
+Route::get('/visit/{id}/reject',[Controllers\VisitController::class, 'reject_visit'] );
+Route::get('/visit/{id}/accept',[Controllers\VisitController::class, 'accept_visit'] );
+Route::get('/notification/{notif_id}/visit/{visit_id}/more',[Controllers\VisitController::class, 'notification_clicked'] );
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

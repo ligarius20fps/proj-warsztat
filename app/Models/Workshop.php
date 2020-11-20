@@ -15,7 +15,10 @@ class Workshops extends Model
         'description',
         'email'
     ];
-     
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
     public function address()
     {
         return $this->belongsTo('App\Models\Address');
