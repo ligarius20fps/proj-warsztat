@@ -9,7 +9,7 @@
             <div class="modal-body">
                 <a class="btn btn-primary" href="{{ route('login') }}">Zaloguj się</a> <br/><br/>
                 <a class="btn btn-primary" href="{{ route('register') }}">Zarejestruj</a> <br/><br/>
-                <a class="btn btn-primary" href="/workshop/{{ $workshop->id }}/guest-visit">Umów się jako gość</a>
+                <a class="btn btn-primary" href="/workshop/{{ $workshop->id }}/guest-visit/{{$service_types[0]->id}}">Umów się jako gość</a>
             </div>
         </div>
     </div>

@@ -7,13 +7,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewVisit extends Notification
+class VisitStatusChanged extends Notification
 {
     use Queueable;
 
-    public function __construct($customer, $workshop, $visit)
+    /**
+     * Create a new notification instance.
+     *
+     * @return void
+     */
+    public function __construct($workshop, $visit)
     {
-        $this->customer=$customer;
         $this->workshop=$workshop;
         $this->visit=$visit;
     }
@@ -51,10 +55,23 @@ class NewVisit extends Notification
      */
     public function toArray($notifiable)
     {
+        switch($this->visit->status)
+        {
+            case(1):
+                $status="Oczekiwanie na realizację";
+            break;
+            case(2):
+                $status="W trakcie realizacji";
+            break;
+            case(3):
+                $status="Zrealizowana";
+            break;
+            
+        }
         $w=$this->workshop->name;
-        $c=$this->customer->name;
+        $v=$this->visit->id;
         return [
-            'message'=>"Nowa wizyta w twoim warsztacie $w. Klient: $c",
+            'message'=>"Warsztat $w zmienił status twojej wizyty nr #$v na: $status",
             'visit'=> $this->visit->id,
         ];
     }

@@ -41,19 +41,18 @@
     @endif
 </table>
     <h3>Umów się na wizytę</h3>
-    <form>
-    <select name="service_type" class="form-control">
+    <select name="service_type" onchange="getSelectedValue()" class="form-control" id="s_type">
     @foreach($service_types as $service_type)
     <option value="{{$service_type->id}}">{{$service_type->name}}</option>
     @endforeach
     </select>
     <br/>
     @if(Auth::user()!=NULL)
-    <a href="/workshop/{{ $workshop->id }}/appoint/0" class="btn btn-primary">Umów się</a>
+    <a href="/workshop/{{ $workshop->id }}/appoint/0/{{$service_types[0]->id}}" class="btn btn-primary">Umów się</a>
     @else
     @include('inc.popup')
     @endif
-    </form><br/>
+    <br/>
     <h3>Opinie</h3>
     <h5>Ocena: {{ $workshop->rating }} spośród {{ $reviews->count() }} opinii</h5>
     @foreach($reviews as $review)
@@ -65,5 +64,15 @@
     </div>
     <br/>
     @endforeach
+    @if(Auth::user()->user_type==0)
+    <a href="/workshop/{{$workshop->id}}/remove" class="btn btn-danger"><i class="fa fa-times"></i> Usuń warsztat</a>
+    @endif
+    <script>
+        function getSelectedValue()
+        {
+            var v=document.getElementById("s_type").selectedIndex.value;
+            return v;
+        }
+    </script>
     </div>
 @endsection

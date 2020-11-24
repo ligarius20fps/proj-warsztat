@@ -7,15 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewVisit extends Notification
+class WorkshopRejected extends Notification
 {
     use Queueable;
 
-    public function __construct($customer, $workshop, $visit)
+    /**
+     * Create a new notification instance.
+     *
+     * @return void
+     */
+    public function __construct($workshop)
     {
-        $this->customer=$customer;
         $this->workshop=$workshop;
-        $this->visit=$visit;
     }
 
     /**
@@ -52,10 +55,9 @@ class NewVisit extends Notification
     public function toArray($notifiable)
     {
         $w=$this->workshop->name;
-        $c=$this->customer->name;
         return [
-            'message'=>"Nowa wizyta w twoim warsztacie $w. Klient: $c",
-            'visit'=> $this->visit->id,
+            'message'=>"Administrator odrzucił twój warsztat $w.",
+            'workshop'=> $this->workshop->id,
         ];
     }
 }

@@ -3,7 +3,7 @@
 <div class="container">
 <h1>Dane kontaktowe</h1>
 @isset($message)
-{{ $message }}
+{{ $message }}<br/><br/>
 @endisset
 @if(Auth::user()!=NULL && Auth::user()->customer!=NULL)
 {{ $customer->name }}<br/>
@@ -17,7 +17,7 @@ tel. {{ $customer->phone_number }}<br/>
 @if(Auth::user()!=null)
 <form action="{{url('/account')}}" method="POST">
 @else
-<form action="/workshop/{{ request()->route('id') }}" method="POST">
+<form action="/workshop/{{ request()->route('id') }}/{{$service_type}}" method="POST">
 @endif
 @csrf
 <div class="form-group">
@@ -60,6 +60,7 @@ tel. {{ $customer->phone_number }}<br/>
         <label for="">Adres email</label>
         <input type="email" class="form-control" name="email">
     @endif
+    <br/>
 <button class="btn btn-primary" type="submit">Dodaj</button>
 </form>
 </div>

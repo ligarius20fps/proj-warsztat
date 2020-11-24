@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Visit_Service_Type extends Model
 {
     use HasFactory;
+    protected $table='visit_service_types';
     
     public function visit()
     {

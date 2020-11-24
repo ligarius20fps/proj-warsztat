@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+    @isset($message)
+    {{ $message }}<br/>
+    @endisset
     <h1>Szczegóły wizyty</h1>
     Wizyta nr #{{ $visit->id }} | {{ $visit->date}}<br/><br/>
     <div class="row">
@@ -20,6 +23,7 @@
     </div>
     </div>
     <br/>
+    Rodzaj usługi:{{$visit_service_type->service_type->name}}<br/>
     Status: 
     @switch($visit->status)
             @case(0)
@@ -43,12 +47,12 @@
     <br/><br/><h4>Edytuj szczegóły wizyty</h4>
     <form action="/visit/{{ $visit->id }}/update" method="POST">
         @csrf
-        <input class="form-control" type="date" name="date">
+        <input class="form-control" type="date" name="date"><br/>
         <select class="form-control" name="status">
             <option value="1">Oczekiwanie na realizację</option>
             <option value="2">W trakcie realizacji</option>
             <option value="3">Zrealizowano</option>
-        </select>
+        </select><br/>
         <button class="btn btn-primary" type="submit">OK</button>
     </form>
         @else
@@ -62,6 +66,8 @@
                 <a href="/visit/{{$visit->id}}/reject" class="btn btn-danger"><i class="fa fa-times"></i> Odrzuć wizytę</a>
             </div></div>
         @endif
+    @elseif(Auth::user()->user_type==1)
+    <br/><br/><a href="/visit/{{$visit->id}}/reschedule" class="btn btn-primary">Zmień termin wizyty</a>
     @endif
 </div>
 @endsection

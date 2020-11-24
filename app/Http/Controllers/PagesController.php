@@ -8,10 +8,12 @@ use App\Models\City;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Visit;
+use App\Models\User;
 use App\Models\Service_Type;
 use App\Models\Review;
 use App\Models\Price_List;
 use App\Models\Price;
+use App\Notifications\NewWorkshop;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
@@ -27,7 +29,7 @@ class PagesController extends Controller
         if($price_list!=null)
         {
         $prices=Price::where('price_list_id',$price_list->id)->get();
-        $service_types= Service_Type::where('price.price_list_id',$price_list->id)->join('prices', 'service_type.id','=','prices.service_type_id');
+        $service_types= Service_Type::where('prices.price_list_id',$price_list->id)->join('prices', 'prices.service_type_id','=','service_types.id')->get();
         }
         else
         {
@@ -60,6 +62,7 @@ class PagesController extends Controller
     public function add_workshop(Request $request)
     {
         $id=$request->workshop_id;
+        $admins= User::where('user_type', 0)->get();
         if($id==null)
         {
         $request->validate([
@@ -118,6 +121,10 @@ class PagesController extends Controller
         $workshop->address_id=$address->id;
         $workshop->user_id=Auth::user()->id;
         $workshop->save();
+        foreach ($admins as $admin)
+        {
+         $admin->notify(new NewWorkshop($workshop,$workshop->user));   
+        }
         return redirect('/account/workshops');
     }
     public function my_workshops()
@@ -129,6 +136,11 @@ class PagesController extends Controller
     public function new_customer()
     {
         $cities=City::all();
+        if(Auth::user()==NULL)
+        {
+            $service_type=$request->route('service_type_id');
+            return view('new_customer', ['cities'=>$cities, 'service_type'=>$service_type])->with('message', 'By umówić się na wizytę jako gość podaj swoje dane');
+        }
         return view('new_customer', ['cities'=>$cities]);
     }
     public function add_customer(Request $request)
@@ -211,7 +223,8 @@ class PagesController extends Controller
         else
         {
             $id=$request->route('id');
-            return redirect("/workshop/$id/appoint/$customer->id");
+            $service_type=$request->route('service_type_id');
+            return redirect("/workshop/$id/appoint/$customer->id/$service_type");
         }
     }
     public function update_customer()
