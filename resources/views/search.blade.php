@@ -15,11 +15,11 @@
      <tbody>
  @foreach($workshops as $workshop)
  <tr><td>
-    <a href="/workshop/{{ $workshop->id }}"> {{ $workshop->name }} </a>
+    <a href="/workshop/{{ $workshop->WorkshopId }}"> {{ $workshop->WorkshopName }} </a>
  </td>
  <td>{{ $workshop->workshop_type->name }}</td>
  <td><i class="fa fa-map-marker"></i> {{ $workshop->address->city->name }}</td>
-  <td>@if($workshop->rating!=NULL){{ $workshop->rating }}
+  <td>@if($workshop->WorkshopRating!=NULL){{ $workshop->WorkshopRating }}
       @else
       Brak opinii
       @endif
