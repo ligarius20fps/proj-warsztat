@@ -138,7 +138,7 @@ class PagesController extends Controller
         $cities=City::all();
         if(Auth::user()==NULL)
         {
-            $service_type=$request->route('service_type_id');
+            $service_type=request()->route('service_type_id');
             return view('new_customer', ['cities'=>$cities, 'service_type'=>$service_type])->with('message', 'By umówić się na wizytę jako gość podaj swoje dane');
         }
         return view('new_customer', ['cities'=>$cities]);

@@ -64,7 +64,7 @@
     </div>
     <br/>
     @endforeach
-    @if(Auth::user()->user_type==0)
+    @if(Auth::user()!=NULL && Auth::user()->user_type==0)
     <a href="/workshop/{{$workshop->id}}/remove" class="btn btn-danger"><i class="fa fa-times"></i> Usuń warsztat</a>
     @endif
     <script>
