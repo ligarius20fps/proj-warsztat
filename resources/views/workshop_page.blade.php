@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('content')
+    <script>
+        function getSelectedValue()
+        {
+            var v=document.getElementById("s_type").selectedIndex.value;
+            return v;
+        }
+    </script>
     <div class="container">
     <h1>{{ $workshop->name }}</h1>
     <h5>{{ $workshop->workshop_type->name }}  |  <i class="fa fa-map-marker"></i> {{ $workshop->address->city->name }}</h5>
@@ -65,14 +72,7 @@
     <br/>
     @endforeach
     @if(Auth::user()!=NULL && Auth::user()->user_type==0)
-    <a href="/workshop/{{$workshop->id}}/remove" class="btn btn-danger"><i class="fa fa-times"></i> Usuń warsztat</a>
+    @include('inc.reject-workshop')
     @endif
-    <script>
-        function getSelectedValue()
-        {
-            var v=document.getElementById("s_type").selectedIndex.value;
-            return v;
-        }
-    </script>
     </div>
 @endsection

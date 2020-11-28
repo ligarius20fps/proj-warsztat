@@ -29,6 +29,7 @@ Route::get('/account', function () {
 Route::get('/account/workshops', [Controllers\PagesController::class, 'my_workshops']);
 
 Route::get('/search', [Controllers\SearchController::class, 'search']);
+Route::get('/search/{q}/filter', [Controllers\SearchController::class, 'filter']);
 
 Route::get('/workshop/{id}',[Controllers\PagesController::class, 'workshop_page']);
 Route::get('/workshop/{id}/visits',[Controllers\PagesController::class, 'workshop_visits']);

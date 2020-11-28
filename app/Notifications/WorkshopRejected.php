@@ -16,9 +16,10 @@ class WorkshopRejected extends Notification
      *
      * @return void
      */
-    public function __construct($workshop)
+    public function __construct($workshop, $reason)
     {
         $this->workshop=$workshop;
+        $this->reason=$reason;
     }
 
     /**
@@ -55,9 +56,11 @@ class WorkshopRejected extends Notification
     public function toArray($notifiable)
     {
         $w=$this->workshop->name;
+        $reason=$this->reason;
         return [
-            'message'=>"Administrator odrzucił twój warsztat $w.",
+            'message'=>"Administrator odrzucił twój warsztat $w. Powód: '$reason'. Jeśli się z tym nie zgadzasz napisz do nas na kontakt@wyszwarszt.pl",
             'workshop'=> $this->workshop->id,
+            'reason'=>$this->reason,
         ];
     }
 }

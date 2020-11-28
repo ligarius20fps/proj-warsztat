@@ -3,7 +3,8 @@
 <div class="container">
  <h1>Wyniki wyszukiwania</h1>
 
- <button class="btn btn-primary">Filtruj</button>
+ <button class="btn btn-primary" data-toggle="modal" data-target="#filter-search">Filtruj</button>
+ @include('inc.filter-search')
  <br><br>
  @if($count!=0)
  Wyswietlanie wyników dla: <b>{{ $q }}</b>

@@ -8,10 +8,12 @@ use Auth;
 
 class AdminController extends Controller
 {
-    public function remove_workshop(int $id)
+    public function remove_workshop(int $id, Request $request)
     {
+        $request->validate(['reason'=>'required',]);
+        $reason=$request->reason;
         $workshop=Workshops::find($id);
-        $workshop->user->notify(new WorkshopRejected($workshop));
+        $workshop->user->notify(new WorkshopRejected($workshop, $reason));
         $workshop->delete();
         return redirect('/');
     }
