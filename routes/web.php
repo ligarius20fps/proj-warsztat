@@ -62,4 +62,9 @@ Route::get('/visit/{id}/accept',[Controllers\VisitController::class, 'accept_vis
 Route::get('/notification/{notif_id}/visit/{visit_id}/more',[Controllers\VisitController::class, 'notification_clicked'] );
 Route::get('/notification/{notif_id}/workshop/{workshop_id}/more',[Controllers\AdminController::class, 'notification_clicked'] );
 Route::get('/workshop/{id}/remove', [Controllers\AdminController::class, 'remove_workshop']);
+Route::get('/db-edit', [Controllers\AdminController::class, 'db_edit']);
+Route::get('/db-edit/{num}', [Controllers\AdminController::class, 'db_edit_table']);
+Route::post('/city/add', [Controllers\AdminController::class, 'add_city']);
+Route::post('/workshop_type/add', [Controllers\AdminController::class, 'add_workshop_type']);
+Route::post('/service_type/add', [Controllers\AdminController::class, 'add_service_type']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

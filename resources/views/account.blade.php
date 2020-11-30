@@ -15,6 +15,8 @@
          @endif
      @elseif(Auth::user()->user_type == 2)
      <a class="btn btn-primary" href="/account/workshops">Moje warsztaty</a>
+     @else
+     <a class="btn btn-primary" href="/db-edit">Edytuj bazę danych</a>
      @endif
 </div>
 @endsection
