@@ -3,7 +3,9 @@
     <script>
         function getSelectedValue()
         {
-            var v=document.getElementById("s_type").selectedIndex.value;
+            var s=document.getElementById("s_type");
+            v=s.options[s.selectedIndex].value;
+            document.getElementById("appoint").setAttribute("href","/workshop/{{ $workshop->id }}/appoint/0/"+v);
             return v;
         }
     </script>
@@ -48,14 +50,14 @@
     @endif
 </table>
     <h3>Umów się na wizytę</h3>
-    <select name="service_type" onchange="getSelectedValue()" class="form-control" id="s_type">
+    <select onchange="getSelectedValue()" name="service_type" class="form-control" id="s_type">
     @foreach($service_types as $service_type)
-    <option value="{{$service_type->id}}">{{$service_type->name}}</option>
+    <option value="{{$service_type->service_type_id}}">{{$service_type->name}}</option>
     @endforeach
     </select>
     <br/>
     @if(Auth::user()!=NULL)
-    <a href="/workshop/{{ $workshop->id }}/appoint/0/{{$service_types[0]->id}}" class="btn btn-primary">Umów się</a>
+    <a id="appoint" href="/workshop/{{ $workshop->id }}/appoint/0/{{$service_types[0]->service_type_id}}" class="btn btn-primary">Umów się</a>
     @else
     @include('inc.popup')
     @endif
