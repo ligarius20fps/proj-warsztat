@@ -12,6 +12,10 @@ class SearchController extends Controller
     function search(Request $request)
     {
     $q = $request->input('q');
+    if($q=="")
+    {
+        return redirect()->back();
+    }
     $cities=City::all()->sortBy('name');
     $workshop_types= Workshop_Types::all()->sortBy('name');
     $workshops = Workshops::join('addresses', 'addresses.id', '=', 'workshops.address_id')
@@ -32,34 +36,32 @@ class SearchController extends Controller
     {
         $cities=City::all()->sortBy('name');
         $workshop_types= Workshop_Types::all()->sortBy('name');
-        $workshops = Workshops::join('addresses', 'addresses.id', '=', 'workshops.address_id')
+        $workshops1 = Workshops::join('addresses', 'addresses.id', '=', 'workshops.address_id')
             ->join('workshop_types','workshop_types.id','=','workshops.workshop_type_id')
             ->join('cities','cities.id','=','addresses.city_id')
-            ->orWhere('cities.name', 'LIKE','%' .$q. '%')
-            ->orWhere('workshop_types.name', 'LIKE','%' .$q. '%')
-            ->orWhere('workshops.name', 'LIKE', '%' .$q. '%')
+            ->where('workshops.name', 'LIKE', '%' .$q. '%')
             ->select('workshops.id as WorkshopId','workshops.name as WorkshopName',
                     'workshops.rating as WorkshopRating','workshops.address_id',
-                    'workshops.workshop_type_id')->get();
-        if($request->filled('city'))
+                    'workshops.workshop_type_id');
+        if($request->filled('city') && $request->city!=0)
         {
-            $workshops->where('addresses.city_id', $request->city);
+            $workshops1->where('addresses.city_id', $request->city);
         }
         if($request->filled('street_name'))
         {
-            $workshops->where('addresses.street_name', 'like', '%'.$request->street_name.'%');
+            $workshops1->where('addresses.street_name', 'like', '%'.$request->street_name.'%');
         }
-        if($request->filled('workshop_type'))
+        if($request->filled('workshop_type') && $request->workshop_type!=0)
         {
-            $workshops->where('workshops.workshop_type_id',$request->workshop_type);
+            $workshops1->where('workshops.workshop_type_id',$request->workshop_type);
         }
         if($request->filled('rating_from'))
         {
-            $workshops->where('workshops.rating','>=', $request->rating_from);
+            $workshops1->where('workshops.rating','>=', $request->rating_from);
         }
         if($request->filled('rating_to'))
         {
-            $workshops->where('workshops.rating','<=', $request->rating_to);
+            $workshops1->where('workshops.rating','<=', $request->rating_to);
         }
         switch ($request->sort_by)
         {
@@ -99,9 +101,17 @@ class SearchController extends Controller
                 $sort_by='workshops.name';
                 $dir='asc';
         }
-        $workshops->get();
-        $workshops->orderBy($sort_by, $dir)->paginate(10);
-        $workshops->appends(array(['q'=>$q, 'request'=>$request]));
+        //$workshops->get();
+        /*if($dir=='asc')
+        {
+            $workshops->sortByAsc($sort_by)->paginate(10);
+        }
+        else
+        {
+            $workshops->sortByDesc($sort_by)->paginate(10);
+        }*/
+        $workshops=$workshops1->orderBy($sort_by, $dir)->paginate(10);
+        $workshops->appends(array('q'=>$q, 'request'=>$request));
         return view('search', ['workshops'=>$workshops, 'q'=>$q, 'count'=>count($workshops), 'cities'=>$cities,'workshop_types'=>$workshop_types]);
     }
 }

@@ -5,7 +5,14 @@
         {
             var s=document.getElementById("s_type");
             v=s.options[s.selectedIndex].value;
-            document.getElementById("appoint").setAttribute("href","/workshop/{{ $workshop->id }}/appoint/0/"+v);
+            if(document.getElementById("appoint")!=null)
+            {
+                document.getElementById("appoint").setAttribute("href","/workshop/{{ $workshop->id }}/appoint/0/"+v);
+            }
+            if(document.getElementById("appointGuest")!=null)
+            {
+                document.getElementById("appointGuest").setAttribute("href","/workshop/{{ $workshop->id }}/guest-visit/"+v);
+            }
             return v;
         }
     </script>
@@ -49,17 +56,19 @@
     <br/><br/>
     @endif
 </table>
-    <h3>Umów się na wizytę</h3>
-    <select onchange="getSelectedValue()" name="service_type" class="form-control" id="s_type">
-    @foreach($service_types as $service_type)
-    <option value="{{$service_type->service_type_id}}">{{$service_type->name}}</option>
-    @endforeach
-    </select>
-    <br/>
-    @if(Auth::user()!=NULL)
-    <a id="appoint" href="/workshop/{{ $workshop->id }}/appoint/0/{{$service_types[0]->service_type_id}}" class="btn btn-primary">Umów się</a>
-    @else
-    @include('inc.popup')
+    @if($prices!=null && $prices->isNotEmpty())
+        <h3>Umów się na wizytę</h3>
+        <select onchange="getSelectedValue()" name="service_type" class="form-control" id="s_type">
+        @foreach($service_types as $service_type)
+        <option value="{{$service_type->service_type_id}}">{{$service_type->name}}</option>
+        @endforeach
+        </select>
+        <br/>
+        @if(Auth::user()!=NULL)
+        <a id="appoint" href="/workshop/{{ $workshop->id }}/appoint/0/{{$service_types[0]->service_type_id}}" class="btn btn-primary">Umów się</a>
+        @else
+        @include('inc.popup')
+        @endif
     @endif
     <br/>
     <h3>Opinie</h3>

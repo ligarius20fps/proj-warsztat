@@ -10,6 +10,7 @@
         @csrf
         <label for="">Miasto</label>
         <select class="form-control" name="city">
+            <option value="0">Wybierz miasto</option>
             @foreach($cities as $city)
             <option value="{{$city->id}}">{{$city->name}}</option>
             @endforeach
@@ -18,6 +19,7 @@
         <input type="text" name="street_name" class="form-control">
         <label for="">Rodzaj warsztatu</label>
         <select class="form-control" name="workshop_type">
+            <option value="0">Wybierz rodzaj warsztatu</option>
             @foreach($workshop_types as $workshop_type)
             <option value="{{$workshop_type->id}}">{{$workshop_type->name}}</option>
             @endforeach
@@ -38,8 +40,8 @@
             <option value="5">Nazwa ulicy (rosnąco)</option>
             <option value="6">Nazwa ulicy (malejąco)</option>
             <option value="7">Rodzaj warsztatu</option>
-            <option value="8">Średnia ocen (od największej)</option>
-            <option value="9">Średnia ocen (od najmniejszej)</option>
+            <option value="8">Średnia ocen (od najmniejszej)</option>
+            <option value="9">Średnia ocen (od największej)</option>
         </select>
         <div class="modal-footer">
         <button class="btn btn-primary" type="submit">Zastosuj filtry</button>

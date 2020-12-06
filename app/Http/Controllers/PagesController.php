@@ -49,15 +49,25 @@ class PagesController extends Controller
         $cities=City::all()->sortBy('name');
         $workshop_types=DB::select("select * from workshop_types");
         $workshop= Workshops::find($id);
-        if(Price_List::where('workshop_id',$id)->get()->count()!=0)
+        $price_list=Price_List::where('workshop_id',$id)->first();
+        if($price_list!=null)
         {
+            if(Price::where('price_list_id',$price_list->id)->get()->count()!=0)
+            {
+                $hasPrices=1;
+            }
+            else
+            {
+                $hasPrices=0;
+            }
             $hasPriceList=1;
         }
         else
         {
+            $hasPrices=0;
             $hasPriceList=0;
         }
-        return view('new_workshop', ['cities'=>$cities, 'workshop_types'=>$workshop_types, 'workshop'=>$workshop, 'hasPriceList'=>$hasPriceList]);
+        return view('new_workshop', ['cities'=>$cities, 'workshop_types'=>$workshop_types, 'workshop'=>$workshop, 'hasPriceList'=>$hasPriceList, 'hasPrices'=>$hasPrices]);
     }
     public function add_workshop(Request $request)
     {

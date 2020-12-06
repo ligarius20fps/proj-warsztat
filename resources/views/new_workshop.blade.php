@@ -6,8 +6,12 @@
 @else
 <h1>Edytuj warsztat</h1>
     @if($hasPriceList==0)
+    <h3>Dodaj cennik aby klienci mogli umawiać się na wizyty!</h3>
     <a href="/account/workshops/{{ $workshop->id }}/price-list/create" class="btn btn-primary">Dodaj Cennik</a><br/><br/>
     @else
+        @if($hasPrices==0)
+                <h3>Dodaj pozycje do cennika aby klienci mogli umawiać się na wizyty!</h3>
+        @endif
     <a href="/account/workshops/{{ $workshop->id }}/price-list" class="btn btn-primary">Edytuj Cennik</a><br/><br/>
     @endif
 @endif
